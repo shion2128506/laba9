@@ -1,0 +1,19 @@
+# Кэш и настройки Visual Studio
+.vs/
+*.vsidx
+*.VC.db
+*.VC.VC.opendb
+
+# Файлы компиляции
+x64/
+Debug/
+Release/
+*.exe
+*.obj
+*.pdb
+*.ilk
+*.idb
+
+# Разное
+*.user
+*.sln.docstates
