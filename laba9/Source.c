@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <locale.h>
+#include <windows.h> // Р”РѕР±Р°РІР»РµРЅРѕ РґР»СЏ РєРѕСЂСЂРµРєС‚РЅРѕРіРѕ РІС‹РІРѕРґР° СЂСѓСЃСЃРєРёС… Р±СѓРєРІ
 
 void task1();
 void task2();
@@ -12,84 +13,90 @@ void task3();
 
 int main()
 {
-	setlocale(LC_ALL, "RUS");
-	task1();
-	task2();
-	task3();
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+    setlocale(LC_ALL, "RUS");
+    
+    task1();
+    task2();
+    task3();
+    return 0;
 }
+
 void task1()
 {
     int row, col;
-    printf("\nТаблица Пифагора:\n");
+    printf("\nРўР°Р±Р»РёС†Р° РџРёС„Р°РіРѕСЂР°:\n");
     for (row = 1; row <= ROW; ++row) {
         for (col = 1; col <= COL; col++) {
             printf("%5d", col * row);
         }
         printf("\n");
     }
-    printf("Левый нижний треугольник:\n");
+    
+    printf("\nР›РµРІС‹Р№ РЅРёР¶РЅРёР№ С‚СЂРµСѓРіРѕР»СЊРЅРёРє:\n");
     for (row = 1; row <= ROW; ++row)
     {
-        // Условие col <= row создает эффект треугольника
         for (col = 1; col <= row; col++)
         {
             printf("%5d", col * row);
         }
         printf("\n");
     }
-    printf("Таблица умножения в виде выражений:\n");
+    
+    printf("\nРўР°Р±Р»РёС†Р° СѓРјРЅРѕР¶РµРЅРёСЏ РІ РІРёРґРµ РІС‹СЂР°Р¶РµРЅРёР№:\n");
     for (row = 1; row <= ROW; ++row) {
         for (col = 1; col <= COL; col++) {
             // %d x %d = %-3d 
-            // (%-3d означает, что результат займет 3 символа и будет выровнен по левому краю для ровных столбцов)
+            // (%-3d РѕР·РЅР°С‡Р°РµС‚, С‡С‚Рѕ СЂРµР·СѓР»СЊС‚Р°С‚ Р·Р°Р№РјРµС‚ 3 СЃРёРјРІРѕР»Р° Рё Р±СѓРґРµС‚ РІС‹СЂРѕРІРЅРµРЅ РїРѕ Р»РµРІРѕРјСѓ РєСЂР°СЋ РґР»СЏ СЂРѕРІРЅС‹С… СЃС‚РѕР»Р±С†РѕРІ)
             printf("%d x %d = %-3d  ", row, col, row * col);
         }
         printf("\n");
     }
 }
+
 void task2()
 {
     char repeat;
     do {
-        char str[100]; // Строка для ввода очень длинного числа
-        int digits[100]; // Массив для хранения цифр
-        int count = 0; // Количество цифр
+        char str[100]; 
+        int digits[100]; 
+        int count = 0; 
 
-        printf("\nВведите произвольное длинное число: ");
+        printf("\nР’РІРµРґРёС‚Рµ РїСЂРѕРёР·РІРѕР»СЊРЅРѕРµ РґР»РёРЅРЅРѕРµ С‡РёСЃР»Рѕ: ");
         scanf("%s", str);
 
-        // 1. разбор числа на цифры
+        // 1. Р Р°Р·Р±РѕСЂ С‡РёСЃР»Р° РЅР° С†РёС„СЂС‹
         for (int i = 0; str[i] != '\0'; i++) {
             if (str[i] >= '0' && str[i] <= '9') {
-                digits[count] = str[i] - '0'; // превращание символа '5' в число 5
+                digits[count] = str[i] - '0'; // РїСЂРµРІСЂР°С‰Р°РµРј СЃРёРјРІРѕР» '5' РІ С‡РёСЃР»Рѕ 5
                 count++;
             }
         }
 
         if (count == 0)
         {
-            printf("Вы не ввели ни одной цифры\n");
+            printf("Р’С‹ РЅРµ РІРІРµР»Рё РЅРё РѕРґРЅРѕР№ С†РёС„СЂС‹!\n");
         }
         else
         {
-            int count3 = 0; // 1) количество цифр 3
-            int countLast = 0; // 2) число повторений последней цифры
-            int countEven = 0; // 3) количество четных цифр
-            int countMore5 = 0; // 4) количество цифр > 5
-            int sumOdd = 0; // 5) сумма нечетных цифр
-            int sumMore7 = 0; // 6) сумма цифр >= 7
-            long long prodAll = 1; // 7) произведение всех цифр (кроме 0)
-            int countAdjacent = 0; // 10) рядом расположенные одинаковые цифры
+            int count3 = 0;          // 1) РєРѕР»РёС‡РµСЃС‚РІРѕ С†РёС„СЂ 3
+            int countLast = 0;       // 2) С‡РёСЃР»Рѕ РїРѕРІС‚РѕСЂРµРЅРёР№ РїРѕСЃР»РµРґРЅРµР№ С†РёС„СЂС‹
+            int countEven = 0;       // 3) РєРѕР»РёС‡РµСЃС‚РІРѕ С‡РµС‚РЅС‹С… С†РёС„СЂ
+            int countMore5 = 0;      // 4) РєРѕР»РёС‡РµСЃС‚РІРѕ С†РёС„СЂ > 5
+            int sumOdd = 0;          // 5) СЃСѓРјРјР° РЅРµС‡РµС‚РЅС‹С… С†РёС„СЂ
+            int sumMore7 = 0;        // 6) СЃСѓРјРјР° С†РёС„СЂ >= 7
+            long long prodAll = 1;   // 7) РїСЂРѕРёР·РІРµРґРµРЅРёРµ РІСЃРµС… С†РёС„СЂ (РєСЂРѕРјРµ 0)
+            int countAdjacent = 0;   // 10) СЂСЏРґРѕРј СЂР°СЃРїРѕР»РѕР¶РµРЅРЅС‹Рµ РѕРґРёРЅР°РєРѕРІС‹Рµ С†РёС„СЂС‹
 
             int lastDigit = digits[count - 1];
-            int firstDigit = digits[0];
             int secondDigit = (count >= 2) ? digits[1] : 0;
             int preLastDigit = (count >= 2) ? digits[count - 2] : 0;
 
             int sumFirstHalf = 0;
             int sumSecondHalf = 0;
-            int sumEvenRazryad = 0; // 12) сумма цифр четных разрядов
-            int sumOddRazryad = 0;  // 12) сумма цифр нечетных разрядов
+            int sumEvenRazryad = 0;  // 12) СЃСѓРјРјР° С†РёС„СЂ С‡РµС‚РЅС‹С… СЂР°Р·СЂСЏРґРѕРІ
+            int sumOddRazryad = 0;   // 12) СЃСѓРјРјР° С†РёС„СЂ РЅРµС‡РµС‚РЅС‹С… СЂР°Р·СЂСЏРґРѕРІ
 
             int half = count / 2;
 
@@ -97,29 +104,23 @@ void task2()
             {
                 int d = digits[i];
 
-                if (d == 3) count3++; // 1) Количество 3
+                if (d == 3) count3++; 
+                if (d == lastDigit) countLast++; 
+                if (d % 2 == 0) countEven++; 
+                if (d > 5) countMore5++; 
+                if (d % 2 != 0) sumOdd += d; 
+                if (d >= 7) sumMore7 += d; 
+                if (d != 0) prodAll *= d; 
 
-                if (d == lastDigit) countLast++; // 2) Повторения последней цифры
-
-                if (d % 2 == 0) countEven++; // 3) Количество четных цифр
-
-                if (d > 5) countMore5++; // 4) Количество цифр > 5
-
-                if (d % 2 != 0) sumOdd += d; // 5) Сумма нечетных цифр
-
-                if (d >= 7) sumMore7 += d; // 6) Сумма цифр >= 7
-
-                if (d != 0) prodAll *= d; // 7) Произведение всех цифр (исключая 0)
-
-                if (i > 0 && digits[i] == digits[i - 1]) // 10) Рядом расположенные одинаковые цифры
+                if (i > 0 && digits[i] == digits[i - 1]) 
                 {
                     countAdjacent++;
                 }
 
-                if (i < half) sumFirstHalf += d; // 11) Сумма половин. Если цифр нечетное количество, средняя цифра идет во вторую половину
+                if (i < half) sumFirstHalf += d; 
                 else sumSecondHalf += d;
 
-                int positionFromEnd = count - 1 - i; // 12) Суммы по разрядам (младший разряд — индекс count-1). Если расстояние от конца (count - 1 - i) четное, разряд нечетный (1-й, 3-й...)
+                int positionFromEnd = count - 1 - i; 
                 if (positionFromEnd % 2 == 0)
                 {
                     sumOddRazryad += d;
@@ -130,39 +131,39 @@ void task2()
                 }
             }
 
-            int prodPreLastSecond = preLastDigit * secondDigit; // 8) Произведение предпоследней и второй цифры
+            int prodPreLastSecond = preLastDigit * secondDigit; 
 
-            int sumEvenExceptLast = 0;  // 9) Сумма четных цифр, исключая последнюю
+            int sumEvenExceptLast = 0;  
             for (int i = 0; i < count - 1; i++)
             {
                 if (digits[i] % 2 == 0) sumEvenExceptLast += digits[i];
             }
 
-            int isHalvesEqual = (sumFirstHalf == sumSecondHalf); // 11) Равна ли сумма первой и второй половины
+            int isHalvesEqual = (sumFirstHalf == sumSecondHalf); 
 
-            printf("\nРезультаты анализа\n");
-            printf("1) Количество цифр 3: %d\n", count3);
-            printf("2) Число повторений последней цифры (%d): %d\n", lastDigit, countLast);
-            printf("3) Количество четных цифр: %d\n", countEven);
-            printf("4) Количество цифр > 5: %d\n", countMore5);
-            printf("5) Сумма нечетных цифр: %d\n", sumOdd);
-            printf("6) Сумма цифр >= 7: %d\n", sumMore7);
-            printf("7) Произведение всех цифр (без 0): %lld\n", prodAll); // Вывод произведения с проверкой на пустоту (если все нули, произведение останется 1)
-            printf("8) Произведение предпоследней (%d) и второй (%d): %d\n", preLastDigit, secondDigit, prodPreLastSecond);
-            printf("9) Сумма четных цифр (без последней): %d\n", sumEvenExceptLast);
-            printf("10) Кол-во рядом стоящих одинаковых цифр: %d\n", countAdjacent);
-            printf("11) Сумма 1-й половины: %d, 2-й: %d. Они %s\n", sumFirstHalf, sumSecondHalf, isHalvesEqual ? "РАВНЫ" : "НЕ РАВНЫ");
-            printf("12) Произведение сумм (чет.разряды %d * нечет.разряды %d) = %d\n", sumEvenRazryad, sumOddRazryad, sumEvenRazryad * sumOddRazryad);
+            printf("\nР РµР·СѓР»СЊС‚Р°С‚С‹ Р°РЅР°Р»РёР·Р°:\n");
+            printf("1) РљРѕР»РёС‡РµСЃС‚РІРѕ С†РёС„СЂ 3: %d\n", count3);
+            printf("2) Р§РёСЃР»Рѕ РїРѕРІС‚РѕСЂРµРЅРёР№ РїРѕСЃР»РµРґРЅРµР№ С†РёС„СЂС‹ (%d): %d\n", lastDigit, countLast);
+            printf("3) РљРѕР»РёС‡РµСЃС‚РІРѕ С‡РµС‚РЅС‹С… С†РёС„СЂ: %d\n", countEven);
+            printf("4) РљРѕР»РёС‡РµСЃС‚РІРѕ С†РёС„СЂ > 5: %d\n", countMore5);
+            printf("5) РЎСѓРјРјР° РЅРµС‡РµС‚РЅС‹С… С†РёС„СЂ: %d\n", sumOdd);
+            printf("6) РЎСѓРјРјР° С†РёС„СЂ >= 7: %d\n", sumMore7);
+            printf("7) РџСЂРѕРёР·РІРµРґРµРЅРёРµ РІСЃРµС… С†РёС„СЂ (Р±РµР· 0): %lld\n", prodAll); 
+            printf("8) РџСЂРѕРёР·РІРµРґРµРЅРёРµ РїСЂРµРґРїРѕСЃР»РµРґРЅРµР№ (%d) Рё РІС‚РѕСЂРѕР№ (%d): %d\n", preLastDigit, secondDigit, prodPreLastSecond);
+            printf("9) РЎСѓРјРјР° С‡РµС‚РЅС‹С… С†РёС„СЂ (Р±РµР· РїРѕСЃР»РµРґРЅРµР№): %d\n", sumEvenExceptLast);
+            printf("10) РљРѕР»-РІРѕ СЂСЏРґРѕРј СЃС‚РѕСЏС‰РёС… РѕРґРёРЅР°РєРѕРІС‹С… С†РёС„СЂ: %d\n", countAdjacent);
+            printf("11) РЎСѓРјРјР° 1-Р№ РїРѕР»РѕРІРёРЅС‹: %d, 2-Р№: %d. РћРЅРё %s\n", sumFirstHalf, sumSecondHalf, isHalvesEqual ? "Р РђР’РќР«" : "РќР• Р РђР’РќР«");
+            printf("12) РџСЂРѕРёР·РІРµРґРµРЅРёРµ СЃСѓРјРј (С‡РµС‚.СЂР°Р·СЂСЏРґС‹ %d * РЅРµС‡РµС‚.СЂР°Р·СЂСЏРґС‹ %d) = %d\n", sumEvenRazryad, sumOddRazryad, sumEvenRazryad * sumOddRazryad);
         }
 
         while (getchar() != '\n');
 
-        printf("\nПродолжить? (Да - y, нет - n): ");
+        printf("\nРџСЂРѕРґРѕР»Р¶РёС‚СЊ? (Р”Р° - y, РЅРµС‚ - n): ");
         repeat = getchar();
 
     } while (repeat == 'y' || repeat == 'Y');
-    return 0;
 }
+
 void task3()
 {
     int repeat;
@@ -172,12 +173,12 @@ void task3()
 
         while (getchar() != '\n');
 
-        printf("\nВведите символ (например, *): ");
+        printf("\nР’РІРµРґРёС‚Рµ СЃРёРјРІРѕР» (РЅР°РїСЂРёРјРµСЂ, *): ");
         scanf("%c", &symbol);
-        printf("Введите размер (рекомендуется 5-10): ");
+        printf("Р’РІРµРґРёС‚Рµ СЂР°Р·РјРµСЂ (СЂРµРєРѕРјРµРЅРґСѓРµС‚СЃСЏ 5-10): ");
         scanf("%d", &n);
 
-        printf("\nЧертеж (Вариант 16):\n\n");
+        printf("\nР§РµСЂС‚РµР¶ (Р’Р°СЂРёР°РЅС‚ 16):\n\n");
 
         for (int i = 1; i <= 2 * n - 1; i++) 
         {
@@ -226,11 +227,8 @@ void task3()
             printf("\n");
         }
 
-        printf("\nПродолжить? (Да - 1, Нет - 0): ");
+        printf("\nРџСЂРѕРґРѕР»Р¶РёС‚СЊ? (Р”Р° - 1, РќРµС‚ - 0): ");
         scanf("%d", &repeat);
 
     } while (repeat != 0);
-
-    return 0;
 }
-
