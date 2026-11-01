@@ -16,4 +16,4 @@
 
 ## Блок-схема
 
-![Блок-схема алгоритма]()
+![Блок-схема алгоритма](https://github.com/shion2128506/laba9/blob/main/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA.PNG)
