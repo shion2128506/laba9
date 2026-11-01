@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <locale.h>
-#include <windows.h> // Добавлено для корректного вывода русских букв
+#include <windows.h>
 
 void task1();
 void task2();
